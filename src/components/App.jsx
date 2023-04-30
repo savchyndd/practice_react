@@ -1,16 +1,26 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
+import React, { Component } from "react";
+
+import { data } from "data/users";
+import { UsersList } from "./UsersList/UsersList";
+
+export class App extends Component {
+  state = {
+    users: data,
+  }
+
+  deleteUser = (userId) => {
+    this.setState(prevState => ({
+      users: prevState.users.filter(user=>user.id !== userId)
+    }))
+  }
+
+  render() {
+    const { users } = this.state;
+
+    return (
+      <>
+        <UsersList users={users} deleteUser={this.deleteUser} />
+      </>
+    );
+  }
 };
